@@ -15,16 +15,16 @@ const Index = () => {
       <section className="relative -mt-32 z-10 px-6 pb-20">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <h1 className="text-5xl md:text-7xl font-light tracking-wide text-text-primary font-heading">
-            Human Superintelligence
+            Advancing Intelligence
           </h1>
           
           <div className="space-y-6 text-lg md:text-xl leading-relaxed text-text-secondary max-w-3xl mx-auto">
             <p>
-              Conscience is an applied research lab working on enhancing human AI complementarity, the problem is simple: with the advent of more advance AI systems, overeliance on AI may cause human reasoning to deplete and undereliance may not allow us to use AI to it's full potential, hence we need better interactive environments and user interfaces that do not make us dumb in long term, while at the same time allow us to utilise AI's full potential.
+              Conscience is an applied research lab focused on closing AI’s toughest performance gaps.
             </p>
             
             <p>
-              We work at the intersection of cognitive sciences, human psychology, advanced engineering, and research, collaborating with the best doctors, psychologists, and DL/ML researchers to deliver one of the most essential products humanity will need in the long term.
+            We work in collaboration with the best domain experts in the field of engineering, bio-medical sciences, chemical sciences, robotics, finance... to provide high quality domain specific data, training pipelines, and red team evaluations to advance frontier models in fields where it falls short.
             </p>
             
             <p>If you think this is something that excites you, then please reach out to us</p>
