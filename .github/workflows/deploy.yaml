@@ -6,7 +6,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -51,13 +51,13 @@ jobs:
           
       - name: Debug - Check GitHub token
         run: |
-          echo "GitHub token available: ${{ secrets.GITHUB_TOKEN != '' }}"
-          echo "Token length: ${#GITHUB_TOKEN}"
+          echo "GitHub token available: ${{ secrets.ACCESS_TOKEN != '' }}"
+          echo "Token length: ${#ACCESS_TOKEN}"
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          access_token: ${{ secrets.ACCESS_TOKEN }}
           publish_dir: ./dist
           force_orphan: true
           user_name: 'github-actions[bot]'
