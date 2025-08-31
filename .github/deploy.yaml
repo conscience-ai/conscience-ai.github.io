@@ -5,6 +5,8 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -47,13 +49,22 @@ jobs:
           echo "Total dist folder size:"
           du -sh dist/
           
+      - name: Debug - Check GitHub token
+        run: |
+          echo "GitHub token available: ${{ secrets.GITHUB_TOKEN != '' }}"
+          echo "Token length: ${#GITHUB_TOKEN}"
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
           
       - name: Debug - Show deployment status
         run: |
           echo "Deployment step completed"
           echo "GitHub Pages should be updated"
+          echo "Check the gh-pages branch for deployed files"
