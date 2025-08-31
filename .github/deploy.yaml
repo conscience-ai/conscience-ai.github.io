@@ -6,13 +6,54 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - run: npm ci
-      - run: npm run build
-      - uses: peaceiris/actions-gh-pages@v3
+          
+      - name: Debug - Show current directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Debug - Show node_modules
+        run: |
+          echo "Node modules installed:"
+          ls -la node_modules | head -10
+          
+      - name: Build project
+        run: npm run build
+        
+      - name: Debug - Show build output
+        run: |
+          echo "Build completed. Dist folder contents:"
+          ls -la dist/
+          echo "Dist assets contents:"
+          ls -la dist/assets/
+          echo "Index.html content (first 10 lines):"
+          head -10 dist/index.html
+          
+      - name: Debug - Check file sizes
+        run: |
+          echo "File sizes in dist folder:"
+          du -h dist/*
+          echo "Total dist folder size:"
+          du -sh dist/
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          
+      - name: Debug - Show deployment status
+        run: |
+          echo "Deployment step completed"
+          echo "GitHub Pages should be updated"
