@@ -10,7 +10,7 @@ jobs:
       pages: write
       id-token: write
     env:
-      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      personal_token: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -61,7 +61,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          personal_token: ${{ env.personal_token }}
           publish_dir: ./dist
           force_orphan: true
           user_name: 'github-actions[bot]'
