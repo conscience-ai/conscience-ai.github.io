@@ -3,39 +3,72 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-
 jobs:
-  # Build and deploy job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment: github-pages
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
         
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          
+      - name: Debug - Show current directory
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
           
       - name: Install dependencies
         run: npm ci
         
+      - name: Debug - Show node_modules
+        run: |
+          echo "Node modules installed:"
+          ls -la node_modules | head -10
+          
       - name: Build project
         run: npm run build
         
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload the built dist folder
-          path: './dist'
+      - name: Debug - Show build output
+        run: |
+          echo "Build completed. Dist folder contents:"
+          ls -la dist/
+          echo "Dist assets contents:"
+          ls -la dist/assets/
+          echo "Index.html content (first 10 lines):"
+          head -10 dist/index.html
+          
+      - name: Debug - Check file sizes
+        run: |
+          echo "File sizes in dist folder:"
+          du -h dist/*
+          echo "Total dist folder size:"
+          du -sh dist/
+          
+      - name: Debug - Check GitHub token
+        run: |
+          echo "GitHub token available: ${{ secrets.ACCESS_TOKEN != '' }}"
+          echo "Token length: ${#ACCESS_TOKEN}"
           
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.ACCESS_TOKEN }}
+          publish_dir: ./dist
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          
+      - name: Debug - Show deployment status
+        run: |
+          echo "Deployment step completed"
+          echo "GitHub Pages should be updated"
+          echo "Check the gh-pages branch for deployed files"
