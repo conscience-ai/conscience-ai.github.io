@@ -42,7 +42,6 @@ jobs:
           echo "Build completed. Dist folder contents:"
           ls -la dist/
           echo "Dist assets contents:"
-          ls -la dist/assets/
           echo "Index.html content (first 10 lines):"
           head -10 dist/index.html
           
