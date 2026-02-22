@@ -20,8 +20,8 @@ export default function Footer() {
               <p className="text-xs font-semibold text-white/40 uppercase tracking-[1px]">Company</p>
               <div className="flex flex-col gap-3">
                 {[
-                  { label: "About us", href: "#" },
-                  { label: "Careers", href: "/careers" },
+                  { label: "About us", href: "https://theconscience.co/" },
+                  { label: "Careers", href: "/main/careers" },
                   { label: "Contact us", href: "https://calendly.com/aditya-theconscience/30min" },
                 ].map((link) => (
                   <a
@@ -40,7 +40,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4">
               <p className="text-xs font-semibold text-white/40 uppercase tracking-[1px]">Product</p>
               <div className="flex flex-col gap-3">
-                {[{ label: "Product", href: "/product" }].map((link) => (
+                {[{ label: "Product", href: "/main/product" }].map((link) => (
                   <a
                     key={link.label}
                     href={link.href}

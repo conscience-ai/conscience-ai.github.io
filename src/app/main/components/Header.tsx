@@ -9,13 +9,15 @@ export default function Header() {
       {/* Nav */}
       <nav className="flex items-center gap-9">
         {[
-          { label: "Product", href: "/product" },
-          { label: "About", href: "#" },
-          { label: "Careers", href: "/careers" },
+          { label: "Product", href: "/main/product" },
+          { label: "About", href: "https://theconscience.co/" },
+          { label: "Careers", href: "/main/careers" },
         ].map((item) => (
           <a
             key={item.label}
             href={item.href}
+            target={item.href.startsWith("http") ? "_blank" : undefined}
+            rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
             className="text-[15px] font-medium text-[var(--color-muted)] hover:text-[var(--color-dark)] transition-colors"
           >
             {item.label}
